@@ -1,6 +1,10 @@
 class CompetitionsController < ApplicationController
 
   def index
-    @competition = Competition.all
+    @competitions = Competition.all
+  end
+
+  def show
+    @competitions = Competition.find(params[:id])
   end
 end
