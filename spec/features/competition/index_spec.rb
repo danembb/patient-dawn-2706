@@ -11,7 +11,7 @@ RSpec.describe 'competition index page' do
   # When I visit the competition index x
   # Then I see the names of all competitions x
   # Each competition name links to its show page x
-  describe 'when I visit the competition' do
+  describe 'when I visit the competition index' do
     it 'can see all competition names and the names link to their respective show pages' do
       visit '/competitions/'
 

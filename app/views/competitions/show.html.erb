@@ -1,1 +1,15 @@
-<h1><%= "/competitions/#{@competition.name}" %></h1> 
+<h1><%= "#{@competition.name}" %></h1>
+<h3>Trial Location: <%= "#{@competition.location}" %></h3>
+<h3>Rites Type: <%= "#{@competition.sport}" %></h3></br>
+
+<% @competition.teams.each do |team| %>
+  <h4>Triumverate Name: <%= team.nickname %></h4>
+  <p>Triumverate Hometown: <%= team.hometown %></p></br>
+<% end %>
+
+<% @average_team_age = [] %>
+<% @competition.teams.each do |team| %>
+  <% @average_team_age << team.players.average("age") %>
+<% end %>
+
+<h4>Average Player Age Across Teams: <%= (@average_team_age.sum / 4).round(0) %></h4>
