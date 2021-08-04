@@ -1,0 +1,8 @@
+<%= form_with url: "/teams", method: :post, local: true do |form| %>
+  <%= form.label :hometown %>
+  <%= form.text_field :hometown %></br>
+  <%= form.label :nickname %>
+  <%= form.text_field :nickname %></br>
+
+  <%= form.submit 'Submit' %>
+<% end %>

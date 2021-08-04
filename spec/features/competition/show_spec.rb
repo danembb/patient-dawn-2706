@@ -39,7 +39,7 @@ RSpec.describe 'competition show page' do
   describe 'when I visit the competitions show page' do
     it 'can see the competitions attributes, all teams nicknames and hometown and average age of players' do
       visit "/competitions/#{@competition1.id}"
-      save_and_open_page
+
       expect(page).to have_content(@competition1.name)
       expect(page).to have_content(@competition1.location)
       expect(page).to have_content(@competition1.sport)
@@ -57,6 +57,35 @@ RSpec.describe 'competition show page' do
       expect(page).to_not have_content(@team5.hometown)
       #should this be an int? if so, in the view, i can instead do <% @average_team_age << team.players.average("age").to_i %>, but it comes out to be 90 instead of 91.
       expect(page).to have_content(@players.average("age").round(0))
+    end
+
+    # User Story 3 - Register a Team
+    # As a user
+    # When I visit a competition's show page x
+    # Then I see a link to register a new team x
+    # When I click this link x
+    # Then I am taken to a new page where I see a form x
+    # When I fill in this form with a team's hometown and nickname x
+    # And I click submit
+    # Then I am redirected back to the competition's show page
+    # And I see the new team I created listed
+    it 'can register a new team' do
+      # team6 = @competition1.teams.create!(hometown: "Highwing Cove", nickname: "The Nightwings")
+
+      visit "/competitions/#{@competition1.id}"
+
+      expect(page).to have_link("Register a New Team")
+
+      click_on "Register a New Team"
+      expect(current_path).to eq("/teams/new")
+
+      fill_in "Hometown", with: "Highwing Cove"
+      fill_in "Nickname", with: "The Nightwings"
+      save_and_open_page
+      click_on "Submit"
+      expect(current_path).to eq("/competitions/#{@competition1.id}")
+      expect(page).to have_content("Highwing Cove")
+      expect(page).to have_content("The Nightwings")
     end
   end
 end
